@@ -11,6 +11,8 @@
 
 #### [Axios](https://github.com/axios/axios)
 
+#### [Bluebird](https://www.npmjs.com/package/bluebird) promise library
+
 ## Pre-requisites
 
 #### Node - [Nodejs](https://www.nodejs.org)
