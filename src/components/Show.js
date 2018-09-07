@@ -20,8 +20,8 @@ class Show extends Component {
   }
 
   delete(id){
-    console.log(id);    
-    axios.delete('/api/book/'+id)
+    console.log('deleting id: ' + id);    
+    axios.delete('/api/task/'+id)
       .then((result) => {
         this.props.history.push("/")
       });

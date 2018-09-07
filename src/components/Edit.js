@@ -13,7 +13,7 @@ class Edit extends Component {
 
   componentDidMount() {
     
-    axios.get('/api/task/'+this.props.match.params.id)
+    axios.get('/api/task/'+ this.props.match.params.id)
       .then(res => {
         this.setState({ task: res.data });
         console.log(this.state.task);        
@@ -23,17 +23,21 @@ class Edit extends Component {
   onChange = (e) => {
     const state = this.state.task
     state[e.target.name] = e.target.value;
-    this.setState({task:state});
+    this.setState({task:state});        
   }
 
   onSubmit = (e) => {
     e.preventDefault();
     
-    const { title, description, start_date, end_date } = this.state;
-    
-    axios.put('/api/task/'+this.props.match.params.id, { title, description, start_date, end_date })
+    var { title, description, start_date, end_date } = this.state.task;
+
+    /* debugging */
+    console.log('state on update : ' + JSON.stringify({ title, description, start_date, end_date }));
+        
+    axios.patch('/api/task/'+ this.props.match.params.id, { title, description, start_date, end_date })
       .then((result) => {
-        this.props.history.push("/show/"+this.props.match.params.id)
+        
+        this.props.history.push("/show/"+this.props.match.params.id);
       });
   }
 

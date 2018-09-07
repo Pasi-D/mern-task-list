@@ -36,7 +36,8 @@ router.post('/', (req, res, next) => {
 
 /* Update a task :: PUT */
 router.put('/:id', (req, res, next) => {
-    Task.findByIdAndUpdate(req.params.id, req.body, function (err, task) {
+    var update = req.body;
+    Task.findByIdAndUpdate(req.params.id, update, function (err, task) {
         if (err) {
             return next(err);
         }
@@ -44,9 +45,20 @@ router.put('/:id', (req, res, next) => {
     });
 });
 
+/*Update a task :: PATCH */
+router.patch('/:id', (req, res, next) => {
+    var update = req.body;
+    Task.findByIdAndUpdate(req.params.id, update, function (err, task) {
+        if (err) {
+            return next(err);
+        }
+        res.json(task);
+    })
+});
+
 /* Delete task :: DELETE */
 router.delete('/:id', (req, res, next) => {
-    Task.findByIdAndRemove(req.params.id, req.body, function (err, task) {
+    Task.findByIdAndRemove(req.params.id, function (err, task) {
         if (err) {
             return next(err);
         }
