@@ -24,7 +24,7 @@ class Create extends Component {
     e.preventDefault();
     
     const { title, description, start_date, end_date } = this.state;
-
+      
     axios.post('/api/task', { title, description, start_date, end_date })
       .then((result) => {
           this.props.history.push("/")
