@@ -4,12 +4,19 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+
+// mlab configs 
+var db = require('./configs/keys').mongoConnectionString;
+
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://pasindu:abc123@ds245132.mlab.com:45132/sampledb', { useMongoClient: true, promiseLibrary: require('bluebird') })
+mongoose.connect(db, { useMongoClient: true, promiseLibrary: require('bluebird') })
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
-/* var book = require('./routes/book'); */
+/* In case if user reloads /show/:id URI */
+var showTask = require('./routes/showTask');
+
+/* Normal Task routes */
 var task = require('./routes/task');
 
 var app = express();
