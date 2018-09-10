@@ -12,11 +12,13 @@ class Show extends Component {
   }
 
   componentDidMount() {    
+    console.log('params.id: ' + this.props.match.params.id);
+    
     axios.get('/api/task/'+this.props.match.params.id)
       .then(res => {
         this.setState({ task: res.data });
         console.log(this.state.task);        
-      })
+      }).catch(err => console.log(err))
   }
 
   delete(id){
