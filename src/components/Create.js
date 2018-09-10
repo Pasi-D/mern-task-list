@@ -1,8 +1,11 @@
+import taskRegisterValidatorInput from '../validations/taskRegister';
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const isEmpty = require('../validations/isEmpty');
 class Create extends Component {
 
   constructor() {
@@ -11,7 +14,8 @@ class Create extends Component {
       title: '',
       description: '',
       start_date: '',
-      end_date: ''
+      end_date: '',
+      errors: {}
     };
   }
   onChange = (e) => {
@@ -24,11 +28,22 @@ class Create extends Component {
     e.preventDefault();
     
     const { title, description, start_date, end_date } = this.state;
+
+    //Validate before submitting
+    var { errors, isValid } = taskRegisterValidatorInput({ title, description, start_date, end_date });
+
+    if (!isValid) {
+      console.log('errors array : ' + JSON.stringify(errors));
       
-    axios.post('/api/task', { title, description, start_date, end_date })
+      //bind errors to state.errors
+      this.setState({errors: errors})
+
+    }else {      
+      axios.post('/api/task', { title, description, start_date, end_date })
       .then((result) => {
           this.props.history.push("/")
       });
+    }    
   }
 
   render() {    
@@ -46,11 +61,13 @@ class Create extends Component {
             <form onSubmit={this.onSubmit}>              
               <div class="form-group">
                 <label for="title">Title:</label>
-                <input type="text" class="form-control" name="title" value={title} onChange={this.onChange} placeholder="Title" />
+                <input type="text" class="form-control" name="title" value={title} onChange={this.onChange} 
+                placeholder={(isEmpty(this.state.errors) && isEmpty(this.state.errors.title)) ? 'Title' : 'Title cannot be empty'} />
               </div>              
               <div class="form-group">
                 <label for="description">Description:</label>
-                <textArea class="form-control" name="description" onChange={this.onChange} placeholder="Description" cols="80" rows="3">{description}</textArea>
+                <textArea class="form-control" name="description" onChange={this.onChange} 
+                placeholder={(isEmpty(this.state.errors) && isEmpty(this.state.errors.description)) ? 'Description' : 'Description cannot be empty'} cols="80" rows="3">{description}</textArea>
               </div>
               <div class="form-group">                
                 <label for="start_date">start Date:</label>

@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const taskEditValidatorInput = require('../validations/taskRegister');
+const isEmpty = require('../validations/isEmpty');
+
 class Edit extends Component {
 
   constructor(props) {
     super(props);
     this.state = {      
-      task: {}
+      task: {},
+      errors: {}
     };
   }
 
@@ -32,13 +36,24 @@ class Edit extends Component {
     var { title, description, start_date, end_date } = this.state.task;
 
     /* debugging */
-    console.log('state on update : ' + JSON.stringify({ title, description, start_date, end_date }));
-        
-    axios.patch('/api/task/'+ this.props.match.params.id, { title, description, start_date, end_date })
+    console.log('state on update : ' + ({ title, description, start_date, end_date }));
+
+    /* Validate entries on submit */
+    var { errors, isValid } = taskEditValidatorInput({ title, description, start_date, end_date });
+
+    if (!isValid) {
+      console.log('errors array : ' + JSON.stringify(errors));
+      
+      this.setState({errors: errors});
+    }else{
+      axios.put('/api/task/'+ this.props.match.params.id, { title, description, start_date, end_date })
       .then((result) => {
         
         this.props.history.push("/show/"+this.props.match.params.id);
-      });
+      }).catch(err => console.log(err));
+    }
+        
+    
   }
 
   render() {
@@ -55,11 +70,13 @@ class Edit extends Component {
             <form onSubmit={this.onSubmit}>              
               <div class="form-group">
                 <label for="title">Title:</label>
-                <input type="text" class="form-control" name="title" value={this.state.task.title} onChange={this.onChange} placeholder="Title" />
+                <input type="text" class="form-control" name="title" value={this.state.task.title} onChange={this.onChange} 
+                placeholder={(isEmpty(this.state.errors) && isEmpty(this.state.errors.title)) ? 'Title' : 'Title cannot be empty'} required="true"/>
               </div>              
               <div class="form-group">
                 <label for="description">Description:</label>
-                <input type="text" class="form-control" name="description" value={this.state.task.description} onChange={this.onChange} placeholder="Description" />
+                <input type="text" class="form-control" name="description" value={this.state.task.description} onChange={this.onChange} 
+                placeholder={(isEmpty(this.state.errors) && isEmpty(this.state.errors.description)) ? 'Description' : 'Description cannot be empty'} required="true" />
               </div>
               <div class="form-group">
                 <label for="start_date">Start Date:</label>
