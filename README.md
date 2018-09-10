@@ -13,6 +13,10 @@
 
 #### [Bluebird](https://www.npmjs.com/package/bluebird) promise library
 
+#### [Validator.js](https://github.com/chriso/validator.js) package library
+
+#### [moment](https://www.npmjs.com/package/moment) package library
+
 ## Pre-requisites
 
 #### Node - [Nodejs](https://www.nodejs.org)
@@ -28,4 +32,6 @@ run `npm run build`
 run `npm start`
 
 Browse to http://localhost:3000
+
+***On slow networks CRUD features may not work properly***
     
