@@ -17,13 +17,29 @@ class Create extends Component {
       start_date: '',
       end_date: '',
       errors: {},
-      date_valid: true
+      showButton: true
     };
+
+    this.isDateValid = this.isDateValid.bind(this)
   }
+
   onChange = (e) => {
     const state = this.state
     state[e.target.name] = e.target.value;
     this.setState(state);
+  }
+  
+  isDateValid() {
+    var dateValidated = dateValidator(document.getElementById('start_date').value, document.getElementById('end_date').value);
+
+    console.log('date validation :' + dateValidated);
+
+    if (!dateValidated) {
+      this.setState({showButton: false})
+    }else{
+      this.setState({showButton: true})
+    }
+    
   }
 
   onSubmit = (e) => {
@@ -33,13 +49,7 @@ class Create extends Component {
     
     //Validate before submitting
     var { errors, isValid } = taskRegisterValidatorInput({ title, description, start_date, end_date });
-
-    var dateValidated = dateValidator(start_date, end_date);
-    //update date_valid state
-    this.setState({date_valid: dateValidated});
-
-    console.log('dates are validated : ' + this.state.date_valid);    
-
+  
     if (!isValid) {
       console.log('errors array : ' + JSON.stringify(errors));
       
@@ -79,13 +89,14 @@ class Create extends Component {
               </div>
               <div class="form-group">                
                 <label for="start_date">start Date:</label>
-                <input type="date" class="form-control" name="start_date" value={start_date} onChange={this.onChange} placeholder="Start Date" />
+                <input id="start_date" type="date" class="form-control" name="start_date" value={start_date} onChange={this.onChange} placeholder="Start Date" />
               </div>
               <div class="form-group">                
                 <label for="end_date">end Date:</label>
-                <input type="date" class="form-control" name="end_date" value={end_date} onChange={this.onChange} placeholder="End Date" />
-              </div>              
-              <button type="submit" class="btn btn-default">Submit</button>
+                <input id="end_date" type="date" class="form-control" name="end_date" value={end_date} onChange={this.onChange} placeholder="End Date" onBlur={this.isDateValid}/>
+              </div> 
+              <p style={{visibility: this.state.showButton ? "hidden" : "visible", color: 'red'}}>Dates mismatch</p>
+              <button style={{visibility: this.state.showButton ? "visible" : "hidden"}} type="submit" class="btn btn-default">Submit</button>
             </form>
           </div>
         </div>

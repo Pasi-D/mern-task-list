@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const dateValidate = require('../validations/dates');
 const taskEditValidatorInput = require('../validations/taskRegister');
 const isEmpty = require('../validations/isEmpty');
 
@@ -11,8 +12,11 @@ class Edit extends Component {
     super(props);
     this.state = {      
       task: {},
-      errors: {}
+      errors: {},
+      showButton: true
     };
+
+    this.isDateValid = this.isDateValid.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +32,16 @@ class Edit extends Component {
     const state = this.state.task
     state[e.target.name] = e.target.value;
     this.setState({task:state});        
+  }
+
+  isDateValid() {
+    var valiDate = dateValidate(document.getElementById('start_date').value, document.getElementById('end_date').value)
+
+    if (!valiDate) {
+      this.setState({showButton: false})
+    }else{
+      this.setState({showButton: true})
+    }
   }
 
   onSubmit = (e) => {
@@ -80,13 +94,14 @@ class Edit extends Component {
               </div>
               <div class="form-group">
                 <label for="start_date">Start Date:</label>
-                <input type="date" class="form-control" name="start_date" value={this.state.task.start_date} onChange={this.onChange} placeholder="Start Date" />
+                <input id="start_date" type="date" class="form-control" name="start_date" value={this.state.task.start_date} onChange={this.onChange} placeholder="Start Date" />
               </div>
               <div class="form-group">
                 <label for="end_date">End Date:</label>
-                <input type="date" class="form-control" name="end_date" value={this.state.task.end_date} onChange={this.onChange} placeholder="End Date" />
+                <input id="end_date" type="date" class="form-control" name="end_date" value={this.state.task.end_date} onChange={this.onChange} placeholder="End Date" onBlur={this.isDateValid} />
               </div>
-              <button type="submit" class="btn btn-default">Submit</button>
+              <p style={{visibility: this.state.showButton ? "hidden" : "visible", color: 'red'}}>Dates mismatch</p>
+              <button style={{visibility: this.state.showButton ? "visible" : "hidden"}} type="submit" class="btn btn-default">Submit</button>
             </form>
           </div>
         </div>

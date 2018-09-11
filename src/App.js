@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types'
+import { getTask } from './actions/taskActions'
+
 import axios from 'axios';
 
 class App extends Component {
@@ -12,7 +17,8 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {    
+  componentDidMount() {  
+    this.props.getTask();  
     axios.get('/api/task')
       .then(res => {
         this.setState({ tasks: res.data });
@@ -53,5 +59,14 @@ class App extends Component {
     );
   }
 }
+App.propTypes = {
+  getTask: PropTypes.func.isRequired,
+  tasks: PropTypes.object.isRequired
+}
 
-export default App;
+const mapStateToProps = (state) => ({
+  tasks: state.tasks
+})
+
+//export default App;
+export default connect(mapStateToProps, { getTask })(App);
