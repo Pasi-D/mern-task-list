@@ -1,4 +1,6 @@
-//checks every data type & returns true if the data is enmpty
+/*
+checks every data type & returns true if the data is empty
+*/
 
 const isEmpty = (data) => {
     return(

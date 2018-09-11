@@ -1,3 +1,7 @@
+/*
+    Validation with npm Validator library
+*/
+
 const Validator = require('validator');
 const isEmpty = require('./isEmpty');
 
