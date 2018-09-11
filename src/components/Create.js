@@ -1,4 +1,5 @@
 import taskRegisterValidatorInput from '../validations/taskRegister';
+import dateValidator from '../validations/dates';
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
@@ -15,7 +16,8 @@ class Create extends Component {
       description: '',
       start_date: '',
       end_date: '',
-      errors: {}
+      errors: {},
+      date_valid: true
     };
   }
   onChange = (e) => {
@@ -28,9 +30,15 @@ class Create extends Component {
     e.preventDefault();
     
     const { title, description, start_date, end_date } = this.state;
-
+    
     //Validate before submitting
     var { errors, isValid } = taskRegisterValidatorInput({ title, description, start_date, end_date });
+
+    var dateValidated = dateValidator(start_date, end_date);
+    //update date_valid state
+    this.setState({date_valid: dateValidated});
+
+    console.log('dates are validated : ' + this.state.date_valid);    
 
     if (!isValid) {
       console.log('errors array : ' + JSON.stringify(errors));
