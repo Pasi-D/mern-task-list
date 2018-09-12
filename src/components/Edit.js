@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import Switch from 'react-switch';
+
 const dateValidate = require('../validations/dates');
 const taskEditValidatorInput = require('../validations/taskRegister');
 const isEmpty = require('../validations/isEmpty');
+
 
 class Edit extends Component {
 
@@ -13,10 +16,12 @@ class Edit extends Component {
     this.state = {      
       task: {},
       errors: {},
+      
       showButton: true
     };
 
     this.isDateValid = this.isDateValid.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -70,6 +75,12 @@ class Edit extends Component {
     
   }
 
+  handleChange(checked){
+    const newstate = this.state.task;
+    newstate["status"] = checked;
+    this.setState({task: newstate});
+  }
+
   render() {
     return (
       <div class="container">
@@ -99,6 +110,15 @@ class Edit extends Component {
               <div class="form-group">
                 <label for="end_date">End Date:</label>
                 <input id="end_date" type="date" class="form-control" name="end_date" value={this.state.task.end_date} onChange={this.onChange} placeholder="End Date" onBlur={this.isDateValid} />
+              </div>
+              <div class="form-group">
+                <label for="status">Completed ?</label>
+                {/* Add the  react-switch here and update*/}
+                <Switch
+                  onChange={this.handleChange}
+                  checked={this.state.task.status}
+                  id="status"
+                />
               </div>
               <p style={{visibility: this.state.showButton ? "hidden" : "visible", color: 'red'}}>Dates mismatch</p>
               <button style={{visibility: this.state.showButton ? "visible" : "hidden"}} type="submit" class="btn btn-default">Submit</button>
