@@ -32,7 +32,7 @@ class TaskDetails extends Component {
                         <dt>End Date</dt>
                         <dd>{this.props.task.end_date}</dd>
                     </dl>
-                    <Link to={`/edit/${this.props.task._id}`} class="btn btn-success">Edit</Link>&nbsp;     
+                    <Link to={{pathname: `/edit/${this.props.task._id}`, state: { task: this.props.task }}} class="btn btn-success">Edit</Link>&nbsp;     
                     <button onClick={this.delete.bind(this, this.props.task._id)} class="btn btn-danger">Delete</button>
                 </div>
             </div>

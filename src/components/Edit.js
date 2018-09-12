@@ -15,8 +15,7 @@ class Edit extends Component {
     super(props);
     this.state = {      
       task: {},
-      errors: {},
-      
+      errors: {},      
       showButton: true
     };
 
@@ -25,12 +24,15 @@ class Edit extends Component {
   }
 
   componentDidMount() {
+
+    console.log('passed state props :' + JSON.stringify(this.props.location.state.task));
     
-    axios.get('/api/task/'+ this.props.match.params.id)
+    this.setState({task: this.props.location.state.task})
+    /* axios.get('/api/task/'+ this.props.match.params.id)
       .then(res => {
         this.setState({ task: res.data });
         console.log(this.state.task);        
-      });
+      }); */
   }
 
   onChange = (e) => {
@@ -52,10 +54,10 @@ class Edit extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     
-    var { title, description, start_date, end_date } = this.state.task;
+    var { title, description, start_date, end_date, status } = this.state.task;
 
     /* debugging */
-    console.log('state on update : ' + ({ title, description, start_date, end_date }));
+    console.log('state on update : ' + (JSON.stringify({ title, description, start_date, end_date, status })));
 
     /* Validate entries on submit */
     var { errors, isValid } = taskEditValidatorInput({ title, description, start_date, end_date });
@@ -65,7 +67,7 @@ class Edit extends Component {
       
       this.setState({errors: errors});
     }else{
-      axios.put('/api/task/'+ this.props.match.params.id, { title, description, start_date, end_date })
+      axios.put('/api/task/'+ this.props.match.params.id, { title, description, start_date, end_date, status })
       .then((result) => {
         
         this.props.history.push("/show/"+this.props.match.params.id);
@@ -112,7 +114,7 @@ class Edit extends Component {
                 <input id="end_date" type="date" class="form-control" name="end_date" value={this.state.task.end_date} onChange={this.onChange} placeholder="End Date" onBlur={this.isDateValid} />
               </div>
               <div class="form-group">
-                <label for="status">Completed ?</label>
+                <label htmlFor="status"><span>Completed ?</span></label>
                 {/* Add the  react-switch here and update*/}
                 <Switch
                   onChange={this.handleChange}
