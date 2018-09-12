@@ -8,6 +8,7 @@ import { getTasks } from './actions/taskActions';
 
 import TaskList from './containers/task-list';
 
+import Loader from 'react-loader-spinner'
 class App extends Component {
 
   constructor(props) {
@@ -22,9 +23,12 @@ class App extends Component {
     const {tasks} = this.props.tasks
     if (tasks === null) {
       return (
-        <div>
-          <h2>Loading ....</h2>
-        </div>
+        <Loader 
+          type="Puff"
+          color="#00BFFF"
+          height="100"	
+          width="100"
+	      />  
       )
     }else{
       return <TaskList tasks={tasks} />
@@ -40,8 +44,7 @@ class App extends Component {
               Task List
             </h3>
           </div>
-          <div class="panel-body">
-            <h4><Link to="/create"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Tasks</Link></h4>          
+          <div class="panel-body">            
             {this.renderTasks()}
           </div>
         </div>
