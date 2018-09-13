@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { getTask } from "../actions/taskActions";
 
+import Loader from 'react-loader-spinner'
+
 import TaskDetails from "../containers/task-details";
 
 class Show extends Component {
@@ -32,9 +34,12 @@ class Show extends Component {
   rendertask() {
     if (this.props.task === null) {
       return (
-        <div>
-          <h4>Loading....</h4>
-        </div>
+        <Loader 
+          type="Puff"
+          color="#00BFFF"
+          height="100"	
+          width="100"
+	      />
       );
     } else {
       return <TaskDetails task={this.props.task} />;

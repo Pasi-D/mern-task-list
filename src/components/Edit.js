@@ -27,12 +27,7 @@ class Edit extends Component {
 
     console.log('passed state props :' + JSON.stringify(this.props.location.state.task));
     
-    this.setState({task: this.props.location.state.task})
-    /* axios.get('/api/task/'+ this.props.match.params.id)
-      .then(res => {
-        this.setState({ task: res.data });
-        console.log(this.state.task);        
-      }); */
+    this.setState({task: this.props.location.state.task})    
   }
 
   onChange = (e) => {
