@@ -5,19 +5,45 @@ import { PropTypes } from 'prop-types';
 
 import Switch from 'react-switch';
 
+import axios from 'axios';
+
 class TaskList extends Component{  
     
     constructor(){
         super();
         // Temporary state untill redux come to action
         this.state = {
-            checked: false
+            //this state is an array of objects with each object : [task._id : checked_status]
+            checks: {}
         };
         this.handleChange = this.handleChange.bind(this);
     }
     
-    handleChange(checked){
-        this.setState({ checked })
+    handleChange(checked, e, id){
+        let cstate = this.state.checks;
+
+        cstate[id] = checked;
+
+        axios.put('/api/task/'+id, { status: checked })
+            .then((result) => {
+                this.setState({ checks: cstate });
+            }).catch(err => console.log(err));
+        
+        console.log('component state : ' + JSON.stringify(this.state.checks));
+                
+    }
+
+    componentDidMount(){
+        //Mount the component's state.checks with [task._id: task.status]
+
+        let bstate = this.state.checks;
+        this.props.tasks.map(task => {
+            bstate[task._id] = task.status
+        });
+        this.setState({ checks: bstate });
+
+        console.log('componentMount state :' + JSON.stringify(this.state.checks));
+        
     }
 
     render(){
@@ -37,12 +63,12 @@ class TaskList extends Component{
                            <tr>
                                <td><Link to={`/show/${task._id}`}>{task.title}</Link></td>
                                <td>{task.description}</td>
-                               <td>{this.state.checked ? 'Complete' : 'Incomplete'}</td>
+                               <td>{this.state.checks[task._id] ? 'Complete' : 'Incomplete'}</td>
                                <td>
                                     <Switch
                                         onChange={this.handleChange}
-                                        checked={this.state.checked}
-                                        id="normal-switch"
+                                        checked={this.state.checks[task._id]}
+                                        id={task._id}
                                     />
                                </td>
                            </tr> 
