@@ -1,15 +1,15 @@
 ## MERN Stack Todo App 
 
 <div>
-<img align="left" width="100" height="100" src="https://mlab.com/base/img/mlab-logo-dark.svg">
+<img align="left" width="150" height="100" src="https://d7umqicpi7263.cloudfront.net/img/product/f0de3b23-30b1-4aad-8760-04f3744e1206/c80188a2-33d2-43e1-8b8b-038026abf7ee.png">
 
 <img align="center" width="100" height="100" src="https://www.atatus.com/images/devicon/icon-express.svg">
 
-<img align="left" width="100" height="100" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K">
+<img align="left" width="100" height="100" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2000px-React-icon.svg.png">
 
 <img align="left" width="150" height="100" src="https://cdn.pixabay.com/photo/2015/04/23/17/41/node-js-736399_960_720.png">
 
-<img align="left" width="150" height="100" src="https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/spaces%2F-L5K1I1WsuQMZ8ecEuWg%2Favatar.png?generation=1518623866348435&alt=media">
+<img align="left" width="100" height="100" src="https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/spaces%2F-L5K1I1WsuQMZ8ecEuWg%2Favatar.png?generation=1518623866348435&alt=media">
 
 </div>
 
