@@ -11,7 +11,7 @@ import axios from 'axios';
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
 function* watcherSaga() {
-    //automatically cancels any previous saga task started previous if it's still running.    
+    //takeLatest automatically cancels any previous saga task started previous if it's still running.    
     yield takeLatest(GET_TASKS_API, workerFetchTasks)
 }
 
@@ -21,20 +21,20 @@ function* TestSaga(){
 }
 
 // Fetch all tasks
-function fetchTasks(){
+//export for testing
+export function fetchTasks(){
     return (
         axios.get('/api/task')
     )
 }
 
-// Worker Saga for making api call when 
-function* workerFetchTasks(){
+// Worker Saga for making api call when dispatched call was listened by watcherSaga
+// exporting for testing
+export function* workerFetchTasks(){
     try{
         const response = yield call(fetchTasks);
         const payload = response.data
 
-        console.log('workerfetchTasks response success');
-        
         // dispatch a success: GET_TASKS action to the store with the fetched tasks
         yield put({type: GET_TASKS, payload})
     }catch(err) {

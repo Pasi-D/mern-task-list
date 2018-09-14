@@ -3,3 +3,4 @@ export const GET_TASK = 'GET_TASK';
 export const ADD_TASK = 'ADD_TASK';
 export const GET_TASKS_API = 'GET_TASKS_API';
 export const API_FAIL = 'API_FAIL';
+export const GET_TASK_API = 'GET_TASK_API';

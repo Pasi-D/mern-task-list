@@ -28,7 +28,7 @@ export default function(state=initialState, action){
         case API_FAIL:
             return {
                 ...state,
-                errors: action.payload
+                errors: action.err
             }
         default:
             return state;
