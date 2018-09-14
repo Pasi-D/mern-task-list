@@ -1,11 +1,13 @@
 import {    
     GET_TASKS,
-    GET_TASK
+    GET_TASK,
+    API_FAIL
 } from '../actions/types'
 
 const initialState = {
     tasks: null, //for all tasks in calling 
-    task: null   //for an individual task
+    task: null,   //for an individual task
+    errors: null //
 }
 
 export default function(state=initialState, action){
@@ -22,6 +24,12 @@ export default function(state=initialState, action){
                 ...state,
                 task: action.payload
             };
+        // API Failure
+        case API_FAIL:
+            return {
+                ...state,
+                errors: action.payload
+            }
         default:
             return state;
     }
