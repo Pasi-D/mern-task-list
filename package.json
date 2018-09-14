@@ -19,6 +19,7 @@
     "react-scripts": "1.0.14",
     "react-switch": "^3.0.4",
     "redux": "^4.0.0",
+    "redux-saga": "^0.16.0",
     "redux-thunk": "^2.3.0",
     "serve-favicon": "^2.4.5",
     "validator": "^10.7.1"
