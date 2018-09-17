@@ -17,7 +17,7 @@ export const getTasks = () => dispatchEvent => {
 // GET a Task for a given id
 export const getTask = (id) => dispatchEvent => {
     axios.get('/api/task/'+id)
-      .then(res => {
+      .then(res => {axios
         console.log('dispatching with axios get task call');
         dispatchEvent({
             type: GET_TASK,

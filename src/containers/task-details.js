@@ -26,9 +26,9 @@ class TaskDetails extends Component {
                     <h4><Link to="/"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Task List</Link></h4>
                     <dl>
                         <dt>Description</dt>
-                        <dd>{this.props.task.description}</dd>
+                        <dd className="toggle-desc">{this.props.task.description}</dd>
                         <dt>Start Date</dt>
-                        <dd>{this.props.task.start_date}</dd>
+                        <dd className="toggle-sd">{this.props.task.start_date}</dd>
                         <dt>End Date</dt>
                         <dd>{this.props.task.end_date}</dd>
                     </dl>

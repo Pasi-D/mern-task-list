@@ -34,7 +34,7 @@ export function* workerFetchTasks(){
     try{
         const response = yield call(fetchTasks);
         const payload = response.data
-
+            
         // dispatch a success: GET_TASKS action to the store with the fetched tasks
         yield put({type: GET_TASKS, payload})
     }catch(err) {
