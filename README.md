@@ -51,3 +51,12 @@ Browse to http://localhost:3000
 
 ***On slow networks CRUD features may not work properly***
     
+To run Tests
+
+switch to [Test](https://github.com/xXZang3tsuXx/mern-task-listtree/tests) Branch
+
+clone the repo
+
+`npm install`
+
+`npm test`
