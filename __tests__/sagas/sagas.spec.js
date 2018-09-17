@@ -41,7 +41,7 @@ test('testing sagas spec', (assert) => {
 
 //Writing the whole script to test with jest
 import { put, call } from 'redux-saga/effects'
-import { workerFetchTasks, fetchTasks } from './sagas'
+import { workerFetchTasks, fetchTasks } from '../../src/sagas'
 
 import {
     GET_TASKS,
