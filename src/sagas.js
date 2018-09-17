@@ -22,11 +22,8 @@ function* TestSaga(){
 
 // Fetch all tasks
 //export for testing
-export function fetchTasks(){
-    return (
-        axios.get('/api/task')
-    )
-}
+export const fetchTasks = () => axios.get('/api/task')
+                                    .then(response => response)
 
 // Worker Saga for making api call when dispatched call was listened by watcherSaga
 // exporting for testing
@@ -34,7 +31,9 @@ export function* workerFetchTasks(){
     try{
         const response = yield call(fetchTasks);
         const payload = response.data
-            
+
+        console.log('payload --> ' +  JSON.stringify(payload));
+                    
         // dispatch a success: GET_TASKS action to the store with the fetched tasks
         yield put({type: GET_TASKS, payload})
     }catch(err) {

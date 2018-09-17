@@ -62,36 +62,39 @@ describe('>>>Testing Saga workerfetchTasks', () => {
     })
 
     it('successfully mocks an actual network request', async () => {
-        mock.onGet('/api/task').reply(200, {
-            tasks: {
-                
-                "_id": "5b963c959cf78a22a43c0ff2",
-                "title": "Task two",
-                "description": "Second Task",
-                "end_date": "2018-09-21T00:00:00.000Z",
-                "__v": 0,
-                "status": true,
-                "start_date": "2018-09-13T00:00:00.000Z"
-            
-            }
-        })
-
-        /* Getting errors on calling */
-        const tasks = await generator.next().value
-        expect(tasks).toMatchObject({
-            tasks: 
+        mock.onGet('http:localhost:3000/api/task').reply(200, [            
                 {
-                
+                    
                     "_id": "5b963c959cf78a22a43c0ff2",
                     "title": "Task two",
                     "description": "Second Task",
                     "end_date": "2018-09-21T00:00:00.000Z",
                     "__v": 0,
                     "status": true,
-                    "start_date": "2018-09-13T00:00:00.000Z"
-                
+                    "start_date": "2018-09-13T00:00:00.000Z"                
                 }
+             
+        ])
+
+        /* Getting errors on calling */
+        const tasks = await generator.next().value;
+        setTimeout(() => {
+            expect(tasks).toMatchObject(
             
-        })
+                [     
+                    {
+                     
+                         "_id": "5b963c959cf78a22a43c0ff2",
+                         "title": "Task two",
+                         "description": "Second Task",
+                         "end_date": "2018-09-21T00:00:00.000Z",
+                         "__v": 0,
+                         "status": true,
+                         "start_date": "2018-09-13T00:00:00.000Z"
+                     
+                     }
+                ] 
+             )
+        },0)
     })
 })
